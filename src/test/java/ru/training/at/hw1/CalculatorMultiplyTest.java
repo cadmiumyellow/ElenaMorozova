@@ -1,15 +1,13 @@
 package ru.training.at.hw1;
 
-import com.epam.tat.module4.Calculator;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-public class CalculatorMultiplyTest {
+public class CalculatorMultiplyTest extends BaseCalculatorTest {
 
-    @Test (groups = {"multiplyAndDivideTests", "allTests"},
-           dataProviderClass = DataProviders.class, dataProvider = "multiplyData")
+    @Test (groups = {"multiplyAndDivideTests"},
+            dataProviderClass = DataProviders.class, dataProvider = "multiplyData")
     public void calculatorMultiplyTest(long a, long b, long result) {
-        Calculator calculator = new Calculator();
         long multiplication = calculator.mult(a, b);
         Assert.assertEquals(result, multiplication);
     }
