@@ -15,9 +15,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
-public class FirstTest {
+public class JdiPageSeleniumFirstTest {
     WebDriver webDriver;
     final String testPageUrl = "https://jdi-testing.github.io/jdi-light/index.html";
     final String userName = "Roman";
@@ -34,7 +33,7 @@ public class FirstTest {
     }
 
     @Test
-    public void epamPageTest() {
+    public void jdiSeleniumPageFirstTest() {
 
         // 1. Assert that test site page is loaded
         webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
@@ -67,7 +66,6 @@ public class FirstTest {
                 .until(webDriver -> webDriver.findElement(
                         By.cssSelector(("div[class='logout'] button"))));
         softAssert.assertTrue(logout.isEnabled());
-
 
 
         //4.Assert that user name is displayed and is equal to expected
@@ -164,7 +162,6 @@ public class FirstTest {
         assertEquals(jdiHeader.getAttribute("href"), "https://github.com/epam/JDI");
 
         //11. Assert that there is Left Section and elements in it
-        //  “Home”, “Contact form”, “Service”, “Metals & Colors”, “Elements packs”
         WebElement leftSection = webDriverWait
                 .until(webDriver -> webDriver.findElement(
                         By.cssSelector(
@@ -186,14 +183,6 @@ public class FirstTest {
             softAssert.assertTrue(leftMenuItems.get(i).isDisplayed());
             softAssert.assertEquals(leftMenuItems.get(i).getText(),
                     expectedMenuTexts.get(i));
-
-            //#mCSB_1_container > ul > li ==15
-            //*[@id="mCSB_1_container"]/ul[@class='sidebar-menu left']/li  --15
-            // div[name='navigation-sidebar'] > div#mCSB_1:first-child >
-            // div#mCSB_1_container:first-child >  div#mCSB_1:first-child >
-            // div#mCSB_1_container:first-child > ul > li
-            // //*[@id="mCSB_1_container"]/ul[@class='sidebar-menu left'] --3
-
         }
 
     }

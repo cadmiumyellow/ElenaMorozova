@@ -111,7 +111,7 @@
         <profile>
             <id>runSumAndSubtractTests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <testXML>${test.suites}/firstTest.xml</testXML>

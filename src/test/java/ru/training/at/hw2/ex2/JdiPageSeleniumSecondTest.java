@@ -14,11 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
-
-public class SecondTest {
+public class JdiPageSeleniumSecondTest {
     private WebDriverWait webDriverWait;
     WebDriver webDriver;
     WebElement webElement;
@@ -39,7 +36,7 @@ public class SecondTest {
     }
 
     @Test
-    public void epamPageSoftAssertTest() {
+    public void jdiSeleniumPageSecondTest() {
         // 1. Assert that test site page is loaded
         webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         webDriver.navigate().to(testPageUrl);
@@ -138,7 +135,6 @@ public class SecondTest {
         List<WebElement> logs = webDriver.findElements(
                             By.cssSelector("ul.panel-body-list > li"));
         softAssert.assertTrue(logs.size() == 4);
-        System.out.println(logs.get(0).getText().substring(9));
         for (int h = 0; h < logs.size(); h++) {
             softAssert.assertEquals(logs.get(h).getText().substring(9), expectedLogsTexts.get(h));
         }
