@@ -1,42 +1,23 @@
 package ru.training.at.hw2.ex1;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.training.at.hw2.BaseSeleniumTestsSetup;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-public class JdiPageSeleniumFirstTest {
-    WebDriver webDriver;
-    final String testPageUrl = "https://jdi-testing.github.io/jdi-light/index.html";
-    final String userName = "Roman";
-    final String password = "Jdi1234";
-
-    @BeforeMethod(alwaysRun = true)
-    public void driverSetup() {
-        System.setProperty("webdriver.chrome.driver",
-                "C:\\Drivers\\chromedriver_win32\\chromedriver.exe");
-        webDriver = new ChromeDriver();
-        webDriver.manage().window().maximize();
-        /*webDriver.manage().timeouts()
-                .implicitlyWait(10, TimeUnit.SECONDS);*/
-    }
+public class JdiPageSeleniumFirstTest extends BaseSeleniumTestsSetup {
 
     @Test
     public void jdiSeleniumPageFirstTest() {
 
         // 1. Assert that test site page is loaded
-        webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         webDriver.navigate().to(testPageUrl);
         SoftAssert softAssert = new SoftAssert();
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
@@ -47,7 +28,7 @@ public class JdiPageSeleniumFirstTest {
 
         //3. Assert that user is logged
         WebElement loginDropdown = webDriverWait
-                .until(webDriver -> webDriver.findElement(By.xpath("//a[@href='#']")));
+                .until(webDriver -> webDriver.findElement(By.className("profile-photo")));
         loginDropdown.click();
 
         WebElement username = webDriverWait
@@ -78,8 +59,7 @@ public class JdiPageSeleniumFirstTest {
         //5. Assert that there are 4 items on the header and they correspond to expected
         List<WebElement> headerElements = webDriverWait
                 .until(webDriver -> webDriver.findElements(
-                By.xpath("//header/div/nav/ul[1]/li")));
-        //By.cssSelector("header > div > nav > ul > li")));
+                        By.cssSelector(".uui-navigation:first-child > li")));
         int expectedNoOfItems = 4;
         softAssert.assertEquals(headerElements.size(), expectedNoOfItems);
         List<String> expectedHeaderFields =
@@ -126,7 +106,7 @@ public class JdiPageSeleniumFirstTest {
 
         WebElement headerText2 = webDriverWait
                 .until(webDriver -> webDriver.findElement(
-                        By.xpath(("//p[@name='jdi-text'][1]"))));
+                        By.name("jdi-text")));
         String expectedP = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, "
                 + "SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. "
                 + "UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI "
@@ -187,8 +167,4 @@ public class JdiPageSeleniumFirstTest {
 
     }
 
-    @AfterMethod (alwaysRun = true)
-    public void driverDismiss() {
-        webDriver.close();
-    }
 }
