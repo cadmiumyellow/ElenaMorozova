@@ -29,14 +29,14 @@
             <artifactId>calculator-1.0</artifactId>
             <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${pom.basedir}\src\lib\calculator-1.0.jar</systemPath>
+            <systemPath>${pom.basedir}/src/lib/calculator-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 
     <properties>
         <java.version>1.8</java.version>
         <encoding>UTF-8</encoding>
-        <test.suites>${project.basedir}\src/test/resources</test.suites>
+        <test.suites>${project.basedir}/src/test/resources</test.suites>
     </properties>
 
     <build>
