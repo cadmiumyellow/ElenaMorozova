@@ -22,7 +22,7 @@ public class BaseSeleniumTestsSetup {
 
     @AfterMethod(alwaysRun = true)
     public void clear() {
-        webDriver.close();
+        webDriver.quit();
     }
 
 }

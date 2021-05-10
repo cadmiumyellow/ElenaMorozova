@@ -59,7 +59,7 @@ public class JdiPageSeleniumFirstTest extends BaseSeleniumTestsSetup {
         //5. Assert that there are 4 items on the header and they correspond to expected
         List<WebElement> headerElements = webDriverWait
                 .until(webDriver -> webDriver.findElements(
-                        By.cssSelector(".uui-navigation:first-child > li")));
+                        By.xpath("//*[@class='uui-navigation nav navbar-nav m-l8']/child::li")));
         int expectedNoOfItems = 4;
         softAssert.assertEquals(headerElements.size(), expectedNoOfItems);
         List<String> expectedHeaderFields =
@@ -164,6 +164,8 @@ public class JdiPageSeleniumFirstTest extends BaseSeleniumTestsSetup {
             softAssert.assertEquals(leftMenuItems.get(i).getText(),
                     expectedMenuTexts.get(i));
         }
+
+        softAssert.assertAll();
 
     }
 

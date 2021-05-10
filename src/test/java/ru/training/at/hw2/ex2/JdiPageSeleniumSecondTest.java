@@ -106,7 +106,6 @@ public class JdiPageSeleniumSecondTest extends BaseSeleniumTestsSetup {
                 "Colors: value changed to Yellow",
                 "metal: value changed to Selen",
                 "Wind: condition changed to true",
-                "Metals & Colors",
                 "Water: condition changed to true");
 
         List<WebElement> logs = webDriver.findElements(
@@ -115,6 +114,8 @@ public class JdiPageSeleniumSecondTest extends BaseSeleniumTestsSetup {
         for (int h = 0; h < logs.size(); h++) {
             softAssert.assertEquals(logs.get(h).getText().substring(9), expectedLogsTexts.get(h));
         }
+
+        softAssert.assertAll();
 
     }
 
