@@ -24,55 +24,74 @@
             </exclusions>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>calculator-1.0</groupId>
-            <artifactId>calculator-1.0</artifactId>
+            <artifactId>calculator-1.0.</artifactId>
             <scope>system</scope>
             <version>1.0</version>
             <systemPath>${pom.basedir}/src/lib/calculator-1.0.jar</systemPath>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
         </dependency>
+
     </dependencies>
 
     <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
         <encoding>UTF-8</encoding>
+        <aspectj.version>1.9.3</aspectj.version>
         <test.suites>${project.basedir}/src/test/resources</test.suites>
+        <!--<testng.configs.path>${project.build.testOutputDirectory}/testngconfigs</testng.configs.path>-->
+        </testXML>
     </properties>
 
     <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>3.1.2</version>
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.puppycrawl.tools</groupId>
-                    <artifactId>checkstyle</artifactId>
-                    <version>8.41.1</version>
-                </dependency>
-            </dependencies>
-            <configuration>
-                <configLocation>
-                    <!--  pay attention to use exact url for checkstyle plugin rule set  -->
-                    https://raw.githubusercontent.com/DmitryKhodakovsky/epam-test-auto-spring-2021/master/codestyle_checks.xml
-                </configLocation>
-                <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                <violationSeverity>warning</violationSeverity>
-                <consoleOutput>true</consoleOutput>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>validate</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>check</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.41.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>
+                        <!--  pay attention to use exact url for checkstyle plugin rule set  -->
+                        https://raw.githubusercontent.com/DmitryKhodakovsky/epam-test-auto-spring-2021/master/codestyle_checks.xml
+                    </configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <violationSeverity>warning</violationSeverity>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                    
         <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -82,46 +101,65 @@
                     <target>${java.version}</target>
                     <encoding>${encoding}</encoding>
                 </configuration>
-        </plugin>
+         </plugin>
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
-            <configuration>
-                <suiteXmlFiles>
-                      <suiteXmlFile>${testXML}</suiteXmlFile>
-                </suiteXmlFiles>
-            </configuration>
-        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <!--<configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${testXML}</suiteXmlFile>
+                        <!--<suiteXmlFile>${test.suites}</suiteXmlFile>-->                        
+                    <!--</suiteXmlFiles>-->
+                    <!--<argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>-->
+                <!--</configuration>-->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-    </plugins>
-</build>
+        </plugins>
+    </build>
 
-<profiles>
-    <profile>
-        <id>runSumAndSubtractTests</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties>
-            <testXML>${test.suites}/firstTest.xml</testXML>
-        </properties>
-    </profile>
+    <profiles>
+        <!--<profile>
+            <id>runSumAndSubtractTests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <testXML>${test.suites}/firstTest.xml</testXML>
+            </properties>
+        </profile>
 
-    <profile>
-        <id>runMultiplyAndDivideTests</id>
-        <properties>
-            <testXML>${test.suites}/secondTest.xml</testXML>
-        </properties>
-    </profile>
+        <profile>
+            <id>runMultiplyAndDivideTests</id>
+            <properties>
+                <testXML>${test.suites}/secondTest.xml</testXML>
+            </properties>
+        </profile>
 
-    <profile>
-        <id>runAllTests</id>
-        <properties>
-            <testXML>${test.suites}/AllTests.xml</testXML>
-        </properties>
-    </profile>
-</profiles>
+        <profile>
+            <id>runAllTests</id>
+            <properties>
+                <testXML>${test.suites}/AllTests.xml</testXML>
+            </properties>
+        </profile>-->
+        <profile>
+            <id>runHw2SeleniumTests</id>
+            <properties>
+                <testXML>${test.suites}/hw2.xml</testXML>
+                <!--<testng.suite.file>${testng.configs.path}/hw2.xml</testng.suite.file>-->
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>
