@@ -23,6 +23,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -55,6 +56,7 @@
         <aspectj.version>1.9.3</aspectj.version>
         <test.suites>${project.basedir}/src/test/resources</test.suites>
         <!--<testng.configs.path>${project.build.testOutputDirectory}/testngconfigs</testng.configs.path>-->
+        </testXML>
     </properties>
 
     <build>
@@ -89,8 +91,8 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
+                    
+        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -99,7 +101,7 @@
                     <target>${java.version}</target>
                     <encoding>${encoding}</encoding>
                 </configuration>
-            </plugin>
+         </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -107,8 +109,8 @@
                 <version>3.0.0-M5</version>
                 <!--<configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${test.suites}</suiteXmlFile>-->
-                        <!--<suiteXmlFile>${testng.suite.file}</suiteXmlFile>-->
+                        <suiteXmlFile>${testXML}</suiteXmlFile>
+                        <!--<suiteXmlFile>${test.suites}</suiteXmlFile>-->                        
                     <!--</suiteXmlFiles>-->
                     <!--<argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -161,4 +163,3 @@
     </profiles>
 
 </project>
-
