@@ -1,5 +1,6 @@
 package ru.training.at.hw3.test;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.training.at.hw3.page.DifferentElementsPage;
@@ -27,10 +28,10 @@ public class SecondTest extends BaseTest {
 
         //3. Assert that user is logged
         homePage.login();
-        softAssert.assertTrue(homePage.logoutEnabled());
+        softAssert.assertTrue(homePage.isLogoutEnabled());
 
         //4.Assert that user name is displayed and is equal to expected
-        softAssert.assertTrue(homePage.loggedNameDisplayed());
+        softAssert.assertTrue(homePage.isLoggedNameDisplayed());
         softAssert.assertEquals(homePage.getLoggedUserName(), loggedName);
 
         //5.Assert that Service -> Different Elements Page is opened

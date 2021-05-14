@@ -26,10 +26,10 @@ public class FirstTest extends BaseTest {
 
         //3. Assert that user is logged
         homePage.login();
-        softAssert.assertTrue(homePage.logoutEnabled());
+        softAssert.assertTrue(homePage.isLogoutEnabled());
 
         //4.Assert that user name is displayed and is equal to expected
-        softAssert.assertTrue(homePage.loggedNameDisplayed());
+        softAssert.assertTrue(homePage.isLoggedNameDisplayed());
         softAssert.assertEquals(homePage.getLoggedUserName(), loggedName);
 
         //5. Assert that there are 4 items on the header and they correspond to expected
@@ -58,18 +58,18 @@ public class FirstTest extends BaseTest {
         }
 
         //8. Assert an iframe
-        softAssert.assertTrue(homePage.iframeIsDisplayed());
+        softAssert.assertTrue(homePage.isIframeDisplayed());
 
         //9. Assert "Frame button" at iframe
         homePage.switchToIframe();
-        softAssert.assertTrue(homePage.iframeButtonIsDisplayed());
+        softAssert.assertTrue(homePage.isIframeButtonDisplayed());
 
         //10. Assert switch to the original window
         homePage.switchBackToHomePage();
         softAssert.assertEquals(homePage.getCurrentUrl(), testPageUrl);
 
         //11. Assert that there is Left Section and elements in it
-        softAssert.assertTrue(homePage.leftSectionIsDisplayed());
+        softAssert.assertTrue(homePage.isLeftSectionDisplayed());
         int expectedNoOfMenuItems = 5;
         int actualNoOfMenuItems = homePage.getLeftMenuItems().size();
         softAssert.assertEquals(actualNoOfMenuItems, expectedNoOfMenuItems);

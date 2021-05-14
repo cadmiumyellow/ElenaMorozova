@@ -10,12 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import javax.inject.Inject;
 import java.util.List;
 
-public class HomePage {
-
-    private WaitActions waitActions;
-    private WebDriver webDriver;
-    private WebElement webElement;
-
+public class HomePage extends BasePage {
 
     @FindBy(className = "profile-photo")
     private WebElement loginDropdown;
@@ -89,11 +84,11 @@ public class HomePage {
         loginButton.click();
     }
 
-    public Boolean logoutEnabled() {
+    public Boolean isLogoutEnabled() {
         return logoutButton.isEnabled();
     }
 
-    public Boolean loggedNameDisplayed() {
+    public Boolean isLoggedNameDisplayed() {
         return logged.isDisplayed();
     }
 
@@ -113,7 +108,7 @@ public class HomePage {
         return iconsTexts;
     }
 
-    public Boolean iframeIsDisplayed() {
+    public Boolean isIframeDisplayed() {
         return iframe.isDisplayed();
     }
 
@@ -123,7 +118,7 @@ public class HomePage {
         //return windowHandler;
     }
 
-    public Boolean iframeButtonIsDisplayed() {
+    public Boolean isIframeButtonDisplayed() {
         return iframeButton.isDisplayed();
     }
 
@@ -131,7 +126,7 @@ public class HomePage {
         webDriver.switchTo().parentFrame();
     }
 
-    public Boolean leftSectionIsDisplayed() {
+    public Boolean isLeftSectionDisplayed() {
         return leftSection.isDisplayed();
     }
 

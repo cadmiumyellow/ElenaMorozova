@@ -9,12 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import javax.inject.Inject;
 import java.util.List;
 
-public class DifferentElementsPage {
-
-    private WaitActions waitActions;
-    private WebDriver webDriver;
-    private WebElement webElement;
-
+public class DifferentElementsPage extends BasePage {
 
     @FindBy(css = ".label-checkbox:first-child > input")
     private WebElement waterCheckbox;

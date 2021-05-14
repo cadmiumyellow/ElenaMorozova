@@ -50,7 +50,7 @@ public class BaseTest {
         webDriver.manage().deleteAllCookies();
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void resetBetweenTests() {
         webDriver.manage().deleteAllCookies();
         webDriver.navigate().refresh();
