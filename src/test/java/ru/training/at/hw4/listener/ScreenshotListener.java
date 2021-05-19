@@ -4,12 +4,13 @@ import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import ru.training.at.hw4.test.BaseTest;
 
 
 public class ScreenshotListener implements ITestListener {
+    WebDriver webDriver = null;
 
     private static String getTestMethodName(ITestResult testResult) {
         return testResult.getMethod().getConstructorOrMethod().getName();
@@ -22,14 +23,13 @@ public class ScreenshotListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
+        ITestContext context = testResult.getTestContext();
+        webDriver = (WebDriver) context.getAttribute("WebDriver");
 
-        Object testClass = testResult.getInstance();
-        WebDriver driver = ((BaseTest) testClass).webDriver;
-
-        if (driver != null) {
-            System.out.println("Screenshot captured for test case:"
+        if (webDriver != null) {
+            System.out.println("Screenshot captured for test case: "
                     + getTestMethodName(testResult));
-            saveScreenshotPng(driver);
+            saveScreenshotPng(webDriver);
         }
     }
 }

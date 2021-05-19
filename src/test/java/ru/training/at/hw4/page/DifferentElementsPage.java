@@ -40,12 +40,12 @@ public class DifferentElementsPage extends BasePage {
         waitActions = new WaitActions(webDriver);
     }
 
-    @Step("getting current URL")
+    @Step("get current URL")
     public String getCurrentUrl() {
         return webDriver.getCurrentUrl();
     }
 
-    @Step("checking if Water and Wind checkboxes are selected")
+    @Step("check if Water and Wind checkboxes are selected")
     public Boolean areCheckboxesSelected() {
         step("tick Water checkbox");
         waterCheckbox.click();
@@ -55,20 +55,19 @@ public class DifferentElementsPage extends BasePage {
         return ((waterCheckbox.isSelected()) && (windCheckbox.isSelected()));
     }
 
-    @Step("checking if radio Selen is selected")
+    @Step("check if radio Selen is selected")
     public Boolean isSelenRadioSelected() {
         selenRadio.click();
         return selenRadio.isSelected();
     }
 
-    @Step("checking if Yellow is selected")
+    @Step("check if Yellow is selected")
     public Boolean isYellowSelected() {
         colorsDropDown.click();
         yellow.click();
         return yellow.isSelected();
     }
 
-    @Step("getting list of logs")
     public List<WebElement> getLogs() {
         return logs;
     }

@@ -3,19 +3,12 @@ package ru.training.at.hw4.test;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.training.at.hw4.page.DifferentElementsPage;
-import ru.training.at.hw4.page.HomePage;
+import ru.training.at.hw4.steps.CommonSteps;
+import ru.training.at.hw4.steps.DifferentElementPageSteps;
+import ru.training.at.hw4.steps.HomePageSteps;
 
-import javax.inject.Inject;
 
-//@Listeners({ScreenshotListener.class})
 public class SecondTest extends BaseTest {
-
-    @Inject
-    private HomePage homePage;
-    @Inject
-    private DifferentElementsPage differentElementsPage;
 
     @Test
     @Feature(value = "testing elements on Different Elements Page and their logs")
@@ -23,44 +16,40 @@ public class SecondTest extends BaseTest {
             + "check necessary checkboxes, radios and dropdown and have "
             + "a correct log of his actions in Logs section")
     public void testDifferentElementsPage() {
-        SoftAssert softAssert = new SoftAssert();
+        commonSteps = new CommonSteps(webDriver);
+        homePageSteps = new HomePageSteps(webDriver);
+        differentElementPageSteps = new DifferentElementPageSteps(webDriver);
+
         // 1. Assert that test site page is loaded
-        homePage.goToHomePage();
-        softAssert.assertEquals(homePage.getCurrentUrl(), testPageUrl);
+        commonSteps.openHomePage();
+        commonSteps.assertHomePageIsLoaded();
 
         //2. Assert that browser title is "Home page"
-        String actualBrowserTitle = homePage.getBrowserTitle();
-        softAssert.assertEquals(actualBrowserTitle, browserTitle);
+        commonSteps.assertBrowserTitle();
 
         //3. Assert that user is logged
-        homePage.login();
-        softAssert.assertTrue(homePage.isLogoutEnabled());
+        commonSteps.assertUserLogin();
 
         //4.Assert that user name is displayed and is equal to expected
-        softAssert.assertTrue(homePage.isLoggedNameDisplayed());
-        softAssert.assertEquals(homePage.getLoggedUserName(), loggedName);
+        commonSteps.assertUserName();
 
         //5.Assert that Service -> Different Elements Page is opened
-        homePage.goToServiceDiffElementsPage();
-        softAssert.assertEquals(differentElementsPage.getCurrentUrl(), diffElementsPageUrl);
+        homePageSteps.goToDifferentElementsPage();
+        differentElementPageSteps.assertDifferentElementPageUrl();
 
         //6.Assert checkboxes Water, Wind are checked
-        softAssert.assertTrue(differentElementsPage.areCheckboxesSelected());
+        differentElementPageSteps.assertCheckboxesAreSelected();
 
         //7. Assert radio Selen selection
-        softAssert.assertTrue(differentElementsPage.isSelenRadioSelected());
+        differentElementPageSteps.assertSelenIsSelected();
 
         //8. Assert Yellow dropdown selected
-        softAssert.assertTrue(differentElementsPage.isYellowSelected());
+        differentElementPageSteps.assertYellowIsSelected();
 
         //9. Assert logs for Water, Wind, Selen and Yellow
-        int expectedNoOfLogs = 4;
-        int actualNoOfLogs = differentElementsPage.getLogs().size();
-        softAssert.assertTrue(actualNoOfLogs == expectedNoOfLogs);
-        for (int h = 0; h < actualNoOfLogs; h++) {
-            softAssert.assertEquals(differentElementsPage.getLogs().get(h).getText().substring(9),
-                    expectedLogsTexts.get(h));
-        }
-        softAssert.assertAll();
+        differentElementPageSteps.assertLogs();
+
+
     }
 }
+
