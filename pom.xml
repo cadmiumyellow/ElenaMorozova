@@ -34,6 +34,7 @@
         <artifactId>slf4j-simple</artifactId>
         <version>${slf4j-simple.version}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -78,6 +79,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+  
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -92,6 +94,7 @@
         <test.suites>${project.basedir}/src/test/resources</test.suites>
         <testXML/>
     </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -182,19 +185,17 @@
                 <testXML>${test.suites}/AllTests.xml</testXML>
             </properties>
         </profile>
-
         <profile>
             <id>runHw2SeleniumTests</id>
             <properties>
                 <testXML>${test.suites}/hw2.xml</testXML>
             </properties>
         </profile>-->
-        <!--<profile>
+        <profile>
             <id>Hw3</id>
             <properties>
                 <testXML>${test.suites}/hw3.xml</testXML>
             </properties>
-        </profile>-->
         <profile>
             <id>Hw4</id>
             <properties>
