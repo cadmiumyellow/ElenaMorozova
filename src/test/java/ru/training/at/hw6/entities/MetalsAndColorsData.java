@@ -3,14 +3,14 @@ package ru.training.at.hw6.entities;
 import com.epam.jdi.tools.DataClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ru.training.at.hw6.utils.JsonDataParser;
+import ru.training.at.hw6.utils.JsonDataProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class MetalsAndColorsData extends DataClass<JsonDataParser> {
+public class MetalsAndColorsData extends DataClass<JsonDataProvider> {
 
     private ArrayList<String> summary;
     private ArrayList<String> elements;
@@ -26,14 +26,6 @@ public class MetalsAndColorsData extends DataClass<JsonDataParser> {
         this.metals = metals;
         this.vegetables = vegetables;
     }
-
-    /*public String dataSetToString() {
-        return summary.toString() + "/"
-                + elements.toString() + "/"
-                + color + "/"
-                + metals + "/"
-                + vegetables.toString();
-    }*/
 
     public String sumSummaryNumbers() {
         int i = Integer.parseInt(summary.get(0)) + Integer.parseInt(summary.get(1));

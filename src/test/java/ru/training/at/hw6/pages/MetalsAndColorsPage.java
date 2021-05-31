@@ -20,9 +20,9 @@ public class MetalsAndColorsPage extends WebPage {
     @Css(".logout")
     public Button logoutButton;
 
-    public boolean resultsContainData(MetalsAndColorsData set, int i) {
+    public boolean resultsContainData(MetalsAndColorsData set, int resultItem) {
         List<String> list = set.setToList();
-        return list.get(i).contains(results.get(i).getText());
+        return list.get(resultItem).contains(results.get(resultItem).getText());
     }
 
 }

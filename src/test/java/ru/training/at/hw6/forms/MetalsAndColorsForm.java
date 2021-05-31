@@ -82,7 +82,8 @@ public class MetalsAndColorsForm extends Form<MetalsAndColorsData> {
     @UI("#submit-button")
     public Button submitButton;
 
-    public void submitForm(MetalsAndColorsData set) {
+    @Override
+    public void submit(MetalsAndColorsData set) {
         selectSummary(set.getSummary());
         selectElements(set.getElements());
         selectColor(set.getColor());
