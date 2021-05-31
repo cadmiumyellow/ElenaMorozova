@@ -34,6 +34,7 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j-simple.version}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -62,7 +63,6 @@
             <scope>system</scope>
             <version>1.0</version>
             <systemPath>${pom.basedir}\src\lib\calculator-1.0.jar</systemPath>
-        </dependency>
         </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -105,6 +105,7 @@
         <test.suites>${project.basedir}/src/test/resources</test.suites>
         <testXML/>
     </properties>
+  
     <build>
         <plugins>
             <plugin>
@@ -236,4 +237,4 @@
         </plugins>
     </reporting>
 
-</project>
+ </project>
