@@ -30,9 +30,9 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>${slf4j-simple.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
@@ -63,7 +63,6 @@
             <scope>system</scope>
             <version>1.0</version>
             <systemPath>${pom.basedir}\src\lib\calculator-1.0.jar</systemPath>
-        </dependency>
         </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -78,8 +77,19 @@
             <version>${allure.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
     </dependencies>
-  
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -91,10 +101,11 @@
         <lombok.version>1.18.20</lombok.version>
         <slf4j-simple.version>2.0.0-alpha1</slf4j-simple.version>
         <allure.version>2.13.9</allure.version>
+        <cucumber.version>6.10.4</cucumber.version>
         <test.suites>${project.basedir}/src/test/resources</test.suites>
         <testXML/>
     </properties>
-
+  
     <build>
         <plugins>
             <plugin>
@@ -185,21 +196,29 @@
                 <testXML>${test.suites}/AllTests.xml</testXML>
             </properties>
         </profile>
+
         <profile>
             <id>runHw2SeleniumTests</id>
             <properties>
                 <testXML>${test.suites}/hw2.xml</testXML>
             </properties>
         </profile>-->
-        <profile>
+        <!--<profile>
             <id>Hw3</id>
             <properties>
                 <testXML>${test.suites}/hw3.xml</testXML>
             </properties>
-        <profile>
+        </profile>-->
+        <!--<profile>
             <id>Hw4</id>
             <properties>
                 <testXML>${test.suites}/hw4.xml</testXML>
+            </properties>
+        </profile>-->
+        <profile>
+            <id>Hw5</id>
+            <properties>
+                <testXML>${test.suites}/hw5.xml</testXML>
             </properties>
         </profile>
     </profiles>
@@ -218,4 +237,4 @@
         </plugins>
     </reporting>
 
-</project>
+ </project>
