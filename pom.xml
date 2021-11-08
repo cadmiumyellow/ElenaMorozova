@@ -12,6 +12,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <test.suites>${project.basedir}/src/test/resources</test.suites>
+        <testXML/>
     </properties>
 
     <dependencies>
@@ -90,7 +92,7 @@
                 <version>3.0.0-M3</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src\test\resources\testng.xml</suiteXmlFile>
+                        <suiteXmlFile>src\test\resources\TrelloAPITests.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.8.12/aspectjweaver-1.8.12.jar"
@@ -110,5 +112,14 @@
 
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>TrelloAPITests</id>
+            <properties>
+                <testXML>${test.suites}/TrelloAPITests.xml</testXML>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

@@ -1,7 +1,6 @@
 package ru.training.at.hw7;
 
 import beans.TrelloBoardJson;
-import io.restassured.http.Method;
 import org.testng.annotations.Test;
 
 import static constants.ParameterName.BOARD_NAME;
@@ -12,96 +11,59 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 
 public class TrelloBoardTest {
-    String createdBoardName;
-    String createdBoardId;
 
-    @Test(priority = 0)
-    public void checkBoardCreated() {
-      TrelloBoardJson board = getBoard(
-              new ApiRequestBuilder()
-                        .setBoardName(BOARD_NAME)
-                        .setMethod(Method.POST)
-                        .buildRequest()
-                        .sendRequest()
-                        .then().assertThat()
-                        .spec(goodResponseSpecification())
-                        .extract()
-                        .response());
+    @Test
+    public void testBoardCreated() {
+        TrelloBoardJson board = createBoard();
+        String createdBoardId = board.getId();
 
-        createdBoardId = board.getId();
-        createdBoardName = board.getName();
-
-        assertEquals(createdBoardName, BOARD_NAME);
+        assertEquals(board.getName(), BOARD_NAME);
+        assertTrue(board.getName().length() == BOARD_NAME.length());
         assertNotNull(board);
+
+        deleteBoard(createdBoardId);
     }
 
-    @Test(priority = 1)
-    public void checkBoardUpdated() {
-        TrelloBoardJson board = getBoard(
-                new ApiRequestBuilder()
-                        .setId(createdBoardId)
-                        .setBoardName(NEW_BOARD_NAME)
-                        .setMethod(Method.PUT)
-                        .buildRequest()
-                        .sendUpdDelGetRequest(createdBoardId)
-                        .then().assertThat()
-                        .spec(goodResponseSpecification())
-                        .extract()
-                        .response());
+    @Test
+    public void testBoardUpdated() {
+        TrelloBoardJson board = createBoard();
+        String createdBoardId = board.getId();
+        String createdBoardName = board.getName();
 
-        assertNotEquals(board.getName(), BOARD_NAME);
-        assertEquals(board.getId(), createdBoardId);
-        assertNotNull(board);
+        TrelloBoardJson updatedBoard = updateBoardName(NEW_BOARD_NAME, createdBoardId);
+
+        assertNotEquals(updatedBoard.getName(), createdBoardName);
+        assertNotEquals(updatedBoard.getName().length(), createdBoardName.length());
+        assertEquals(updatedBoard.getId(), createdBoardId);
+        assertNotNull(updatedBoard);
+
+        deleteBoard(createdBoardId);
     }
 
-    @Test(priority = 2)
-    public void checkBoardCanBeRetrievedById() {
-        TrelloBoardJson board = getBoard(
-                new ApiRequestBuilder()
-                        .setMethod(Method.GET)
-                        .buildRequest()
-                        .sendUpdDelGetRequest(createdBoardId)
-                        .then().assertThat()
-                        .spec(goodResponseSpecification())
-                        .extract()
-                        .response());
+    @Test
+    public void testBoardCanBeRetrievedById() {
+        TrelloBoardJson board = createBoard();
+        String createdBoardId = board.getId();
 
-        assertNotEquals(board.getName(), BOARD_NAME);
-        assertEquals(board.getId(), createdBoardId);
-        assertNotNull(board);
+        TrelloBoardJson retrievedBoardById = getBoardById(createdBoardId);
+
+        assertEquals(board.getName(), retrievedBoardById.getName());
+        assertEquals(retrievedBoardById.getId(), createdBoardId);
+        assertNotNull(retrievedBoardById);
+
+        deleteBoard(createdBoardId);
     }
 
-    @Test(priority = 3, dependsOnMethods = {})
-    public void deleteBoard() {
-        TrelloBoardJson board = getBoard(
-                new ApiRequestBuilder()
-                        .setId(createdBoardId)
-                        .setMethod(Method.DELETE)
-                        .buildRequest()
-                        .sendUpdDelGetRequest(createdBoardId)
-                        .then().assertThat()
-                        .spec(goodResponseSpecification())
-                        .extract()
-                        .response());
+    @Test
+    public void testBoardDeleted() {
+        TrelloBoardJson board = createBoard();
+        String createdBoardId = board.getId();
 
-        assertNull(board.getName());
-        assertNull(board.getId());
-        assertNotNull(board);
-    }
+        TrelloBoardJson deletedBoard = deleteBoard(createdBoardId);
+        String deletedBoardDescription = getDeletedBoardById(createdBoardId);
 
-    @Test(priority = 4, dependsOnMethods = {})
-    public void checkBoardDeleted() {
-        String board = getDeletedBoard(
-                new ApiRequestBuilder()
-                        .setId(createdBoardId)
-                        .buildRequest()
-                        .sendUpdDelGetRequest(createdBoardId)
-                        .then().assertThat()
-                        .spec(badResponseSpecification())
-                        .extract()
-                        .response());
-
-        assertNotNull(board);
-        assertTrue(board.contains("The requested resource was not found."));
+        assertNotNull(deletedBoard);
+        assertNotEquals(board, deletedBoard);
+        assertTrue(deletedBoardDescription.contains("The requested resource was not found."));
     }
 }

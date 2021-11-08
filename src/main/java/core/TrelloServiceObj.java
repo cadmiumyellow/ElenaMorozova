@@ -115,11 +115,71 @@ public class TrelloServiceObj {
                 .build();
     }
 
-    public static ResponseSpecification badResponseSpecification() {
+    public static ResponseSpecification notFoundResponseSpecification() {
         return new ResponseSpecBuilder()
                 .expectContentType(ContentType.TEXT)
                 .expectResponseTime(lessThan(10000L))
                 .expectStatusCode(HttpStatus.SC_NOT_FOUND)
                 .build();
     }
+
+    public static TrelloBoardJson createBoard() {
+        return  getBoard(new ApiRequestBuilder()
+                .setBoardName(BOARD_NAME)
+                .setMethod(Method.POST)
+                .buildRequest()
+                .sendRequest()
+                .then().assertThat()
+                .spec(goodResponseSpecification())
+                .extract()
+                .response());
+    }
+
+    public static TrelloBoardJson deleteBoard(String boardId) {
+        return getBoard(new ApiRequestBuilder()
+                .setId(boardId)
+                .setMethod(Method.DELETE)
+                .buildRequest()
+                .sendUpdDelGetRequest(boardId)
+                .then().assertThat()
+                .spec(goodResponseSpecification())
+                .extract()
+                .response());
+    }
+
+    public static TrelloBoardJson getBoardById(String boardId) {
+        return getBoard(new ApiRequestBuilder()
+                //.setId(boardId)
+                .setMethod(Method.GET)
+                .buildRequest()
+                .sendUpdDelGetRequest(boardId)
+                .then().assertThat()
+                .spec(goodResponseSpecification())
+                .extract()
+                .response());
+    }
+
+    public static String getDeletedBoardById(String boardId) {
+        return getDeletedBoard(new ApiRequestBuilder()
+                .buildRequest()
+                .sendUpdDelGetRequest(boardId)
+                .then().assertThat()
+                .spec(notFoundResponseSpecification())
+                .extract()
+                .response());
+    }
+
+    public static TrelloBoardJson updateBoardName(String newBoardName, String boardId) {
+        return getBoard(new ApiRequestBuilder()
+                //.setId(id)
+                .setBoardName(newBoardName)
+                .setMethod(Method.PUT)
+                .buildRequest()
+                .sendUpdDelGetRequest(boardId)
+                .then().assertThat()
+                .spec(goodResponseSpecification())
+                .extract()
+                .response());
+    }
+
 }
